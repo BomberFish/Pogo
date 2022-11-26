@@ -12,7 +12,7 @@ final class ThemeManager {
     static var secondaryBackgroundColour: UIColor {
         UIColor(dynamicProvider: { traitCollection in
             if traitCollection.userInterfaceStyle == .dark {
-                return .systemGray6
+                return .black
             } else {
                 return .white
             }
@@ -24,7 +24,7 @@ final class ThemeManager {
             if traitCollection.userInterfaceStyle == .dark {
                 return .black
             } else {
-                return .systemGray6
+                return .white
             }
         })
     }

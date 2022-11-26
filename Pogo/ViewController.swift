@@ -40,11 +40,14 @@ class ViewController: BaseViewController {
         statusLabel = UILabel(frame: .zero)
         statusLabel!.translatesAutoresizingMaskIntoConstraints = false
         statusLabel?.textColor = .label
+        statusLabel?.font = UIFont.systemFont(ofSize: 10)
 
         let version = UILabel(frame: .zero)
         version.translatesAutoresizingMaskIntoConstraints = false
-        version.textColor = .label
-        
+        version.textColor = .secondaryLabel
+        version.textAlignment = .center
+        version.font = UIFont.systemFont(ofSize: 10)
+    
         view.addSubview(install)
         view.addSubview(remove)
         view.addSubview(tools)
@@ -118,7 +121,7 @@ class ViewController: BaseViewController {
                             self.statusLabel?.text = "Failed to prepare bootstrap \(ret)"
                             // if ret is -1, it probably means that amfi is not patched, show a alert
                             if ret == -1 {
-                                let alert = UIAlertController(title: "Error", message: "Failed with -1, are you sure you have amfi patched?", preferredStyle: .alert)
+                                let alert = UIAlertController(title: "Error", message: "Failed with -1, are you sure you have AMFI patched?", preferredStyle: .alert)
                                 alert.addAction(UIAlertAction(title: "NO", style: .default, handler: nil))
                                 // show the alert
                                 self.present(alert, animated: true)
@@ -138,10 +141,10 @@ class ViewController: BaseViewController {
                                     let ret = spawn(command: "/var/jb/usr/bin/uicache", args: ["-p", "/var/jb/Applications/Sileo-Nightly.app"], root: true)
                                     DispatchQueue.main.async {
                                         if ret != 0 {
-                                            self.statusLabel?.text = "failed to uicache \(ret)"
+                                            self.statusLabel?.text = "Failed to UICache \(ret)"
                                             return
                                         }
-                                        self.statusLabel?.text = "uicache succesful, have fun!"
+                                        self.statusLabel?.text = "UICache successful, have fun!"
                                     }
                                 }
                             }
@@ -169,7 +172,7 @@ class ViewController: BaseViewController {
                     let ret = spawn(command: "/var/jb/usr/bin/uicache", args: ["-u", "/var/jb/Applications/\(app)"], root: true)
                     DispatchQueue.main.async {
                         if ret != 0 {
-                            self.statusLabel?.text = "failed to unregister \(ret)"
+                            self.statusLabel?.text = "Failed to unregister \(ret)"
                             return
                         }
                     }                
@@ -182,7 +185,7 @@ class ViewController: BaseViewController {
                     self.statusLabel?.text = "Failed to remove :( \(ret)"
                     return
                 }
-                self.statusLabel?.text = "omg its gone!"
+                self.statusLabel?.text = "Successfully removed!"
             }
         }
     }
@@ -196,10 +199,10 @@ class ViewController: BaseViewController {
                     let ret = spawn(command: "/var/jb/usr/bin/uicache", args: ["-p", "/var/jb/Applications/\(app)"], root: true)
                     DispatchQueue.main.async {
                         if ret != 0 {
-                            self.statusLabel?.text = "failed to uicache \(ret)"
+                            self.statusLabel?.text = "Failed to UICache \(ret)"
                             return
                         }
-                        self.statusLabel?.text = "uicache succesful, have fun!"
+                        self.statusLabel?.text = "UICache successful, have fun!"
                     }                
                 }
             }
